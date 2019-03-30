@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.severn.Adapter.VideoAdapter;
+import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
 
 import java.util.ArrayList;
@@ -56,6 +60,10 @@ public class TangFragment extends Fragment {
     private ScheduledExecutorService scheduledExecutorService;
 
 
+    //    所有的古诗词list
+    private List<VideoDao> videoDaoList = new ArrayList<>();
+    private RecyclerView recyclerView;
+
 
     private void setView(){
         mViewPaper = (ViewPager)mView.findViewById(R.id.vp);
@@ -81,8 +89,6 @@ public class TangFragment extends Fragment {
         mViewPaper.setAdapter(adapter);
 
         mViewPaper.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-
             @Override
             public void onPageSelected(int position) {
                 title.setText(titles[position]);
@@ -192,7 +198,38 @@ public class TangFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_tang, container, false);
         setView();
+        initVideos();
+        recyclerView = mView.findViewById(R.id.tanglist);
+
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        VideoAdapter adapter = new VideoAdapter(videoDaoList);
+        recyclerView.setAdapter(adapter);
+
         return mView;
+    }
+
+    //    古诗词列表的初始化
+    private void initVideos(){
+        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang1 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang2 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang3 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang4 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang5 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang6 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang7 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang8 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
     }
 
 

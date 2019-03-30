@@ -4,20 +4,26 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.severn.Adapter.VideoAdapter;
 import com.example.severn.dynasty.MingFragment;
 import com.example.severn.dynasty.QingFragment;
 import com.example.severn.dynasty.SongFragment;
 import com.example.severn.dynasty.TangFragment;
 import com.example.severn.dynasty.YuanFragment;
+import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
 import com.example.severn.tabview.TabTopAutoLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class StatFragment extends Fragment {
@@ -56,6 +62,7 @@ public class StatFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
     /**初始化数据*/
     private void initData() {
@@ -128,18 +135,20 @@ public class StatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stat, container, false);
-
         id_titleLayout = view.findViewById(R.id.id_titleLayout);
+
         //初始化数据
         initData();
         //初始化控件的点击事件
         initEvent();
-
 //        初始化Fragmrnt
         initFragmrnt();
+
+
+
+
         return view;
         //初始化控件
-
     }
     @Override
     public void onDetach() {
@@ -178,4 +187,6 @@ public class StatFragment extends Fragment {
             mFragment = fragment;
         }
     }
+
+
 }

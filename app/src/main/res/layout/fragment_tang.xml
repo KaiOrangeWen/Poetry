@@ -1,23 +1,19 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.severn.dynasty.TangFragment">
-
-
+    tools:context="com.example.severn.dynasty.TangFragment"
+    android:orientation="vertical"
+    >
 
     <!--轮播图开始-->
-
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="220dip" >
-
         <android.support.v4.view.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dip"
@@ -61,8 +57,6 @@
                     android:layout_marginLeft="2dip"
                     android:layout_marginRight="2dip"
                     android:background="@mipmap/dot_no"/>
-
-
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
@@ -70,6 +64,12 @@
 
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tanglist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></android.support.v7.widget.RecyclerView>
+
     <!--轮播图结束-->
 
-</FrameLayout>
+</LinearLayout>
