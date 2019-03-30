@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+//        初始化底部导航栏布局
         initFragmrnt();
+//        设置初始页面为学习首页
+        navigation.setSelectedItemId(R.id.navigation_dashboard);
     }
 
     //布局的初始化，默认是主页
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.frameLayout,searchFragment)
                 .commit();
         mFragment = searchFragment;
+
     }
 
     //布局的切换
