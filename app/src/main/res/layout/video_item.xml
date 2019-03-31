@@ -26,9 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="秋思"
-        android:textSize="22sp"
+        android:textSize="18sp"
+        android:textColor="#000"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/video_img"
+        android:layout_marginRight="-50dp"
         />
 
     <TextView

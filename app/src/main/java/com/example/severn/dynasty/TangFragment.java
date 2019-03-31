@@ -113,7 +113,6 @@ public class TangFragment extends Fragment {
 
     /*定义的适配器*/
     public class ViewPagerAdapter extends PagerAdapter {
-
         @Override
         public int getCount() {
             return images.size();
@@ -126,16 +125,10 @@ public class TangFragment extends Fragment {
 
         @Override
         public void destroyItem(ViewGroup view, int position, Object object) {
-            // TODO Auto-generated method stub
-//          super.destroyItem(container, position, object);
-//          view.removeView(view.getChildAt(position));
-//          view.removeViewAt(position);
             view.removeView(images.get(position));
         }
-
         @Override
         public Object instantiateItem(ViewGroup view, int position) {
-            // TODO Auto-generated method stub
             view.addView(images.get(position));
             return images.get(position);
         }
@@ -147,7 +140,6 @@ public class TangFragment extends Fragment {
      */
     @Override
     public void onStart() {
-        // TODO Auto-generated method stub
         super.onStart();
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleWithFixedDelay(
@@ -199,10 +191,9 @@ public class TangFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_tang, container, false);
         setView();
         initVideos();
+
+//        古诗词列表
         recyclerView = mView.findViewById(R.id.tanglist);
-
-
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -214,9 +205,9 @@ public class TangFragment extends Fragment {
 
     //    古诗词列表的初始化
     private void initVideos(){
-        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang1 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang2 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
+        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang1,"张集","唐");
+        VideoDao tang1 = new VideoDao("将进酒",R.drawable.tang2,"张集","唐");
+        VideoDao tang2 = new VideoDao("留别妻",R.drawable.tang3,"张集","唐");
         VideoDao tang3 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
         VideoDao tang4 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
         VideoDao tang5 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
@@ -230,6 +221,62 @@ public class TangFragment extends Fragment {
         videoDaoList.add(tang4);
         videoDaoList.add(tang5);
         videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang1);
+        videoDaoList.add(tang2);
+        videoDaoList.add(tang3);
+        videoDaoList.add(tang4);
+        videoDaoList.add(tang5);
+        videoDaoList.add(tang6);
+        videoDaoList.add(tang7);
+        videoDaoList.add(tang8);
     }
 
 

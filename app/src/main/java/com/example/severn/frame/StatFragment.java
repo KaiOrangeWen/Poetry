@@ -1,5 +1,6 @@
 package com.example.severn.frame;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.example.severn.dynasty.SongFragment;
 import com.example.severn.dynasty.TangFragment;
 import com.example.severn.dynasty.YuanFragment;
 import com.example.severn.entity.VideoDao;
+import com.example.severn.poetry.LoginActivity;
 import com.example.severn.poetry.R;
 import com.example.severn.tabview.TabTopAutoLayout;
 
@@ -51,7 +54,8 @@ public class StatFragment extends Fragment {
     private QingFragment qingFragment;
     private Fragment mFragment;//当前显示的Fragment
 
-
+//    登陆按钮
+    private Button longinButton;
 
     public StatFragment() {
     }
@@ -136,7 +140,7 @@ public class StatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stat, container, false);
         id_titleLayout = view.findViewById(R.id.id_titleLayout);
-
+        longinButton = view.findViewById(R.id.bstat_login);
         //初始化数据
         initData();
         //初始化控件的点击事件
@@ -144,9 +148,12 @@ public class StatFragment extends Fragment {
 //        初始化Fragmrnt
         initFragmrnt();
 
-
-
-
+        longinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+            }
+        });
         return view;
         //初始化控件
     }
