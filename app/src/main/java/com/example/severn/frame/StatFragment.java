@@ -196,7 +196,6 @@ public class StatFragment extends Fragment {
         switch (requestCode){
             case 1:
                 if (resultCode == 2){
-
                     String returnUsername = data.getStringExtra("name");
                     longinButton.setText(returnUsername);
                 }

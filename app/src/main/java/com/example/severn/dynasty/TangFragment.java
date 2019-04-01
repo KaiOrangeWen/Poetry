@@ -1,6 +1,7 @@
 package com.example.severn.dynasty;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,17 +10,28 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.severn.Adapter.VideoAdapter;
 import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
+import com.example.severn.util.StreamTools;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -35,6 +47,7 @@ public class TangFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
+    private static final String TAG ="TangFragment" ;
 
     private View mView;
     private ViewPager mViewPaper;
@@ -64,6 +77,9 @@ public class TangFragment extends Fragment {
     private List<VideoDao> videoDaoList = new ArrayList<>();
     private RecyclerView recyclerView;
 
+    private String videoNmae;
+    private String videoAuthor;
+    private String videoImgUrl;
 
     private void setView(){
         mViewPaper = (ViewPager)mView.findViewById(R.id.vp);
@@ -189,93 +205,111 @@ public class TangFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_tang, container, false);
         setView();
-        initVideos();
+
 
 //        古诗词列表
         recyclerView = mView.findViewById(R.id.tanglist);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        initVideos();
         VideoAdapter adapter = new VideoAdapter(videoDaoList);
         recyclerView.setAdapter(adapter);
+
 
         return mView;
     }
 
     //    古诗词列表的初始化
     private void initVideos(){
-        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang1,"张集","唐");
-        VideoDao tang1 = new VideoDao("将进酒",R.drawable.tang2,"张集","唐");
-        VideoDao tang2 = new VideoDao("留别妻",R.drawable.tang3,"张集","唐");
-        VideoDao tang3 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang4 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang5 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang6 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang7 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        VideoDao tang8 = new VideoDao("静夜思",R.drawable.tang2,"张集","唐");
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
-        videoDaoList.add(tang0);
-        videoDaoList.add(tang1);
-        videoDaoList.add(tang2);
-        videoDaoList.add(tang3);
-        videoDaoList.add(tang4);
-        videoDaoList.add(tang5);
-        videoDaoList.add(tang6);
-        videoDaoList.add(tang7);
-        videoDaoList.add(tang8);
+        videoDaoList.add(new VideoDao("将进酒","李白",Uri.parse("http://172.16.10.4:8888/images/libai.jpg")));
+        new Thread(){
+            @Override
+            public void run() {
+                String data = "{\"dynasty\":\"唐\"}";
+                String post = Post(data, "http://172.16.10.4:8888/getbspoetry", getActivity());
+                Log.d(TAG,post+"===============================");
+                String videoList =  paresVideoJSON(post);
+                videoJSON(videoList);
+            }
+        }.start();
+//        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang1,"张集","唐");
+//        videoDaoList.add(tang0);
+    }
+    public  String Post(String string,String post,Context context)//string POST参数,get 请求的URL地址,context 联系上下文
+    {
+        String html;
+        try {
+            String urldizhi=post; //请求地址
+            URL url=new URL(urldizhi);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(3000);
+            conn.setDoInput(true);//表示从服务器获取数据
+            conn.setDoOutput(true);//表示向服务器写数据
+            //获得上传信息的字节大小以及长度
+            conn.setRequestMethod("POST");
+            //是否使用缓存
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.connect();
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write(string);
+            out.flush();
+            out.close();
+//            获取返回值代码
+//            int code = conn.getResponseCode();
+//            Log.d(TAG, "Post: "+code);
+//            if (code != 200){
+//
+//            }
+            InputStream inputStream=conn.getInputStream();
+            byte[] data=StreamTools.read(inputStream);
+            html = new String(data, "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("-----"+e);
+            String string2="{\"success\":-1}";
+            return string2;
+        }
+        return html;
+    }
+    private String paresVideoJSON (String jsonData){
+        String videoInfo = null;
+        jsonData = "["+jsonData+"]";
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                videoInfo = jsonObject.getString("data");
+                Log.d(TAG,videoInfo+"====================");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return videoInfo;
+    }
+    private void videoJSON (String jsonData){
+        try {
+            JSONArray jsonArray  = new JSONArray(jsonData);
+            for (int i = 0;i<jsonArray.length();i++){
+                JSONObject  jsonObject = jsonArray.getJSONObject(i);
+                videoNmae = jsonObject.getString("name");
+                videoAuthor = jsonObject.getString("author");
+                videoImgUrl = jsonObject.getString("image");
+                Log.d(TAG,videoNmae+"======"+videoAuthor+"======="+videoImgUrl);
+                videoDaoList.add(new VideoDao(videoNmae,videoAuthor,Uri.parse("http://172.16.10.4:8888/"+videoImgUrl)));
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        VideoAdapter videoAdapter2 = new VideoAdapter(videoDaoList);
+                        recyclerView.setAdapter(videoAdapter2);
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

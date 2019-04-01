@@ -1,21 +1,23 @@
 package com.example.severn.entity;
 
 
+import android.net.Uri;
+
 //视频选项的实体类
 public class VideoDao {
     private String name;
-    private int imageId;
+    private Uri imageId;
     private  String author;
-    private  String time;
+
 
     public VideoDao() {
     }
 
-    public VideoDao(String name, int imageId, String author, String time) {
+    public VideoDao(String name, String author,Uri imageId) {
         this.name = name;
         this.imageId = imageId;
         this.author = author;
-        this.time = time;
+
     }
 
     public String getName() {
@@ -26,11 +28,11 @@ public class VideoDao {
         this.name = name;
     }
 
-    public int getImageId() {
+    public Uri getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(Uri imageId) {
         this.imageId = imageId;
     }
 
@@ -42,11 +44,5 @@ public class VideoDao {
         this.author = author;
     }
 
-    public String getTime() {
-        return time;
-    }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
 }

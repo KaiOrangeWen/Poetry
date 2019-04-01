@@ -41,7 +41,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             videoImg = itemView.findViewById(R.id.video_img);
             videoName = itemView.findViewById(R.id.video_name);
             videoAuthor = itemView.findViewById(R.id.video_author);
-            videoTime = itemView.findViewById(R.id.video_time);
+
         }
     }
     public VideoAdapter(List<VideoDao> videoList) {
@@ -66,8 +66,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         VideoDao videoDao = mVideoList.get(i);
-        viewHolder.videoImg.setImageResource(videoDao.getImageId());
-        viewHolder.videoTime.setText(videoDao.getTime());
+        viewHolder.videoImg.setImageURI(videoDao.getImageId());
         viewHolder.videoName.setText(videoDao.getName());
         viewHolder.videoAuthor.setText(videoDao.getAuthor());
     }

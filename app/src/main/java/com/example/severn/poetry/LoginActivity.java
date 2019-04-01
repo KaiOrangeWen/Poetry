@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         String pass = et_pass.getText().toString();
 //                      String data  = "name=" + URLEncoder.encode(name, "utf-8") + "&pass=" + URLEncoder.encode(pass, "utf-8") + "";
                         String data = "{\"name\":\""+name+"\",\"password\":\""+pass+"\"}";
-                        final String post = Post(data, "http://10.12.61.96:8888/login", getApplicationContext());
+                        final String post = Post(data, "http://172.16.10.4:8888/login", getApplicationContext());
                         paresUserIbfoJSON(post);
                         runOnUiThread(new Runnable() {
                             @Override
