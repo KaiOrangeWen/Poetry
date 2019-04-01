@@ -28,15 +28,12 @@ import com.example.severn.tabview.TabTopAutoLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 public class StatFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-
 
     private TabTopAutoLayout id_titleLayout;
     private ArrayList<CharSequence> tabTitleList = new ArrayList<CharSequence>();
@@ -45,7 +42,6 @@ public class StatFragment extends Fragment {
     /**当前的选项卡的下标值*/
     private int mCurrentIndex = -1;
     private TextView tv_show;//显示选中的选项卡的文本
-
 
     private FragmentTransaction transaction;
     private SongFragment songFragment;
@@ -67,7 +63,6 @@ public class StatFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
     /**初始化数据*/
     private void initData() {
@@ -105,8 +100,6 @@ public class StatFragment extends Fragment {
         //隐藏全部碎片
         hideFragments();
         //=============To Do根据实际情况显示不同的区域=============
-
-
         switch (tabTitleList.get(checkedIndex).toString()) {
             case "明代":
                 switchFragment(mingFragment);
@@ -129,16 +122,13 @@ public class StatFragment extends Fragment {
                 System.out.println(checkedIndex+"==============================="+"宋代选项卡");
                 return;
         }
-
         savdCheckedIndex = checkedIndex;
         mCurrentIndex = checkedIndex;
-
     }
     /**隐藏全部碎片
      * 需要注意：不要在OnResume方法中实例化碎片，因为先添加、显示，才可以隐藏。否则会出现碎片无法显示的问题*/
     private void hideFragments() {
         //=============根据实际情况进行处理=============
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -152,14 +142,13 @@ public class StatFragment extends Fragment {
         initEvent();
 //        初始化Fragmrnt
         initFragmrnt();
-
 //        选项卡默认选中唐代
-
         SwitchTab(0);
         longinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+
+                startActivityForResult(new Intent(getActivity(),LoginActivity.class),1);
             }
         });
         return view;
@@ -202,5 +191,15 @@ public class StatFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if (resultCode == 2){
 
+                    String returnUsername = data.getStringExtra("name");
+                    longinButton.setText(returnUsername);
+                }
+        }
+    }
 }

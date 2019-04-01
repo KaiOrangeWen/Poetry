@@ -41,6 +41,7 @@
             android:paddingLeft="5dp"
             android:singleLine="true"
             android:text="登录"
+            android:textAllCaps="false"
             android:textColor="#ffffffff"
             android:textSize="18dp"
             android:visibility="visible" />

@@ -2,6 +2,8 @@ package com.example.severn.poetry;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.severn.util.StreamTools;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -26,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button login;
     private EditText et_name;
     private EditText et_pass;
+
+
+    private String username;
+    private String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,19 +58,19 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         String name = et_name.getText().toString();
                         String pass = et_pass.getText().toString();
-                        try {
-//                            String data  = "name=" + URLEncoder.encode(name, "utf-8") + "&pass=" + URLEncoder.encode(pass, "utf-8") + "";
-                            String data = "{\"name\":\""+name+"\",\"password\":\""+pass+"\"}";
-                            final String post = Post(data, "http://172.16.10.6:8888/login", getApplicationContext());
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(activity, post, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                      String data  = "name=" + URLEncoder.encode(name, "utf-8") + "&pass=" + URLEncoder.encode(pass, "utf-8") + "";
+                        String data = "{\"name\":\""+name+"\",\"password\":\""+pass+"\"}";
+                        final String post = Post(data, "http://10.12.61.96:8888/login", getApplicationContext());
+                        paresUserIbfoJSON(post);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent();
+                                intent.putExtra("name",username);
+                                setResult(2,intent);
+                                finish();
+                            }
+                        });
                     }
                 }.start();
             }
@@ -79,12 +89,10 @@ public class LoginActivity extends AppCompatActivity {
             conn.setDoInput(true);//表示从服务器获取数据
             conn.setDoOutput(true);//表示向服务器写数据
             //获得上传信息的字节大小以及长度
-
             conn.setRequestMethod("POST");
             //是否使用缓存
             conn.setUseCaches(false);
             conn.setRequestProperty("Content-Type", "application/json");
-//      conn.setRequestProperty("User-Agent", Other.getUserAgent(context));
             conn.connect();
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
             out.write(string);
@@ -97,9 +105,15 @@ public class LoginActivity extends AppCompatActivity {
                runOnUiThread(new Runnable() {
                    @Override
                    public void run() {
-//                       Toast.makeText(activity, "登陆成功", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(activity, "登陆成功", Toast.LENGTH_SHORT).show();
                    }
                });
+               //将用户名密码保存到SP文件中
+                SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("username",username);
+                editor.putString("password",password);
+                editor.commit();
             }
 
             InputStream inputStream=conn.getInputStream();
@@ -112,6 +126,40 @@ public class LoginActivity extends AppCompatActivity {
             return string2;
         }
         return html;
+    }
+
+    private void paresUserIbfoJSON (String jsonData){
+        String userInfo;
+        jsonData = "["+jsonData+"]";
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0;i<jsonArray.length();i++){
+                JSONObject  jsonObject = jsonArray.getJSONObject(i);
+                userInfo = jsonObject.getString("userInfo");
+                Log.d(TAG,userInfo);
+                userJSON(userInfo);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void userJSON (String jsonData){
+        JSONArray jsonArray ;
+        jsonData = "["+jsonData+"]";
+        try {
+            jsonArray = new JSONArray(jsonData);
+            for (int i = 0;i<jsonArray.length();i++){
+                JSONObject  jsonObject = jsonArray.getJSONObject(i);
+                username  = jsonObject.getString("name");
+                password = jsonObject.getString("passward");
+                Log.d(TAG,username);
+                Log.d(TAG,password);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

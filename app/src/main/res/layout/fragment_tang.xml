@@ -62,8 +62,6 @@
     </FrameLayout>
 
 
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tanglist"
         android:layout_width="match_parent"
