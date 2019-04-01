@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,21 +110,25 @@ public class StatFragment extends Fragment {
         switch (tabTitleList.get(checkedIndex).toString()) {
             case "明代":
                 switchFragment(mingFragment);
+                System.out.println(checkedIndex+"==============================="+"明代选项卡");
                 return;
             case "清代":
                 switchFragment(qingFragment);
+                System.out.println(checkedIndex+"==============================="+"清代选项卡");
                 return;
             case "元代":
                 switchFragment(yuanFragment);
+                System.out.println(checkedIndex+"==============================="+"元代选项卡");
                 return;
             case "唐代":
                 switchFragment(tangFragment);
+                System.out.println(checkedIndex+"==============================="+"唐代选项卡");
                 return;
             case "宋代":
                 switchFragment(songFragment);
+                System.out.println(checkedIndex+"==============================="+"宋代选项卡");
                 return;
         }
-
 
         savdCheckedIndex = checkedIndex;
         mCurrentIndex = checkedIndex;
@@ -148,6 +153,9 @@ public class StatFragment extends Fragment {
 //        初始化Fragmrnt
         initFragmrnt();
 
+//        选项卡默认选中唐代
+
+        SwitchTab(0);
         longinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +173,6 @@ public class StatFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
-
     //布局的初始化，默认是唐代
     private  void initFragmrnt(){
         mingFragment = new MingFragment();

@@ -163,7 +163,6 @@ public class TangFragment extends Fragment {
             mHandler.sendEmptyMessage(0);
         }
     }
-
     /**
      * 接收子线程传递过来的数据
      */
