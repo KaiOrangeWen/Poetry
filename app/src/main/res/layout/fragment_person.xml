@@ -34,11 +34,11 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:textColor="#fff"
-
                 />
         </RelativeLayout>
-
         <!--我的测试模块开始-->
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,50 +140,50 @@
 
         <!--我的笔记模块-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            >
-            <RelativeLayout
-                android:background="#F7F8F8"
-                android:id="@+id/mynote"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:clickable="true"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#E5E5E5"
-                    >
-                </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的笔记"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="30dp"
-                    android:textSize="16dp"
-                    android:layout_centerVertical="true"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:src="@mipmap/right_ccc"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="8dp"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="0dp"
-                    android:background="#E5E5E5"
-                    >
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--&gt;-->
+            <!--<RelativeLayout-->
+                <!--android:background="#F7F8F8"-->
+                <!--android:id="@+id/mynote"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:clickable="true"-->
+                <!--&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#E5E5E5"-->
+                    <!--&gt;-->
+                <!--</LinearLayout>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="我的笔记"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--/>-->
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:src="@mipmap/right_ccc"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginRight="8dp"-->
+                    <!--/>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginBottom="0dp"-->
+                    <!--android:background="#E5E5E5"-->
+                    <!--&gt;-->
+                <!--</LinearLayout>-->
+            <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
         <!--我的笔记模块结束-->
 
 
@@ -210,7 +210,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="测试报表"
+                    android:text="我的报表"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="30dp"
                     android:textSize="16dp"
@@ -240,6 +240,57 @@
 
         <!--小工具模块-->
 
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--&gt;-->
+            <!--<RelativeLayout-->
+                <!--android:background="#F7F8F8"-->
+                <!--android:id="@+id/mytool"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:clickable="true"-->
+                <!--&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#E5E5E5"-->
+                    <!--&gt;-->
+                <!--</LinearLayout>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="我的工具"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--/>-->
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:src="@mipmap/right_ccc"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginRight="8dp"-->
+                    <!--/>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginBottom="0dp"-->
+                    <!--android:background="#E5E5E5"-->
+                    <!--&gt;-->
+                <!--</LinearLayout>-->
+            <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
+
+        <!--小工具模块结束-->
+
+
+
+
+        <!--退出登录模块-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -247,7 +298,7 @@
             >
             <RelativeLayout
                 android:background="#F7F8F8"
-                android:id="@+id/mytool"
+                android:id="@+id/exit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
@@ -261,7 +312,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的工具"
+                    android:text="退出登录"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="30dp"
                     android:textSize="16dp"
@@ -285,7 +336,8 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <!--小工具模块结束-->
+        <!--退出登录-->
+
     </LinearLayout>
 
 

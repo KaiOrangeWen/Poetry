@@ -6,14 +6,14 @@ import android.net.Uri;
 //视频选项的实体类
 public class VideoDao {
     private String name;
-    private Uri imageId;
+    private String imageId;
     private  String author;
 
 
     public VideoDao() {
     }
 
-    public VideoDao(String name, String author,Uri imageId) {
+    public VideoDao(String name, String author,String imageId) {
         this.name = name;
         this.imageId = imageId;
         this.author = author;
@@ -28,11 +28,11 @@ public class VideoDao {
         this.name = name;
     }
 
-    public Uri getImageId() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImageId(Uri imageId) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 

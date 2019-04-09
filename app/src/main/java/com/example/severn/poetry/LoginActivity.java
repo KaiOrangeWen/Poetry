@@ -7,16 +7,20 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.severn.util.Constant;
 import com.example.severn.util.StreamTools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -32,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button login;
     private EditText et_name;
     private EditText et_pass;
+    private TextView regrdit;
 
 
     private String username;
@@ -44,6 +49,13 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         et_name = findViewById(R.id.uselogin);
         et_pass = findViewById(R.id.usepass);
+        regrdit = findViewById(R.id.register_home);
+        regrdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,SlignActivity.class));
+            }
+        });
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                         String pass = et_pass.getText().toString();
 //                      String data  = "name=" + URLEncoder.encode(name, "utf-8") + "&pass=" + URLEncoder.encode(pass, "utf-8") + "";
                         String data = "{\"name\":\""+name+"\",\"password\":\""+pass+"\"}";
-                        final String post = Post(data, "http://172.16.10.4:8888/login", getApplicationContext());
+                        final String post = Post(data, Constant.LOGIN, getApplicationContext());
                         paresUserIbfoJSON(post);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -75,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
                 }.start();
             }
         });
+
+
     }
 
     public  String Post(String string,String post,Context context)//string POST参数,get 请求的URL地址,context 联系上下文
@@ -106,16 +120,16 @@ public class LoginActivity extends AppCompatActivity {
                    @Override
                    public void run() {
                        Toast.makeText(activity, "登陆成功", Toast.LENGTH_SHORT).show();
+                       //将用户名密码保存到SP文件中
+                       SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                       editor.putString("username",username);
+                       editor.putString("password",password);
+                       editor.commit();
                    }
                });
-               //将用户名密码保存到SP文件中
-                SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("username",username);
-                editor.putString("password",password);
-                editor.commit();
-            }
 
+            }
             InputStream inputStream=conn.getInputStream();
             byte[] data=StreamTools.read(inputStream);
             html = new String(data, "utf-8");
@@ -127,7 +141,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         return html;
     }
-
     private void paresUserIbfoJSON (String jsonData){
         String userInfo;
         jsonData = "["+jsonData+"]";

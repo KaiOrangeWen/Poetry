@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222222">
+    //头部标题栏
+    <RelativeLayout
+        android:id="@+id/biaoti"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C8DC4">
+        <TextView
+            android:text="静夜思"
+            android:id="@+id/tv_poem_title"
+            android:textSize="21sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/button_backward"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:drawablePadding="6dp"
+            android:background="#3C8DC4"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+
+
+    //诗的题目和朝代作者
+    <RelativeLayout
+        android:layout_marginTop="50dp"
+        android:id="@+id/rl_poem_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/tv_poem_Dynamic"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="【唐】·李白"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textSize="15dp"
+            />
+    </RelativeLayout>
+
+
+    //放古诗句的列表
+    <ListView
+        android:id="@+id/lv_poem"
+        android:layout_below="@id/rl_poem_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="150dp"
+        android:padding="10dp"
+        android:divider="#00000000"
+        android:dividerHeight="0dp">
+    </ListView>
+
+    //评论收藏功能区
+    //底部布局（播放条和按钮）
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginBottom="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ly_setting"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/btn_heart"
+                android:layout_width= "40dp"
+                android:layout_height="40dp"
+                android:background="@mipmap/heart_while"
+                android:layout_gravity="center"
+                android:layout_marginRight="100dp"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_introduce"
+                android:layout_width= "40dp"
+                android:layout_height="40dp"
+                android:background="@mipmap/introduce_while"
+                android:layout_gravity="center"
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="0dp"
+                />
+            <ImageButton
+                android:id="@+id/btn_map"
+                android:layout_width= "40dp"
+                android:layout_height="40dp"
+                android:background="@mipmap/map_while"
+                android:layout_gravity="center"
+                android:layout_marginLeft="100dp"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ly_seek_bar"
+            android:layout_below="@id/ly_setting"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/time_start"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:text="00:00"
+                android:textColor="#ffffff"
+                android:textSize="10dp"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                />
+
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="353dp"
+                android:layout_height="25dp" />
+            <TextView
+                android:id="@+id/time_end"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:text="00:00"
+                android:textColor="#ffffff"
+                android:textSize="10dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ly_button"
+            android:layout_below="@+id/ly_seek_bar"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/btn_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/pervious_while"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_play"
+                android:layout_width= "90dp"
+                android:layout_height="90dp"
+                android:background="@mipmap/play_while"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                />
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/next_while"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

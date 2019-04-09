@@ -1,6 +1,8 @@
 package com.example.severn.frame;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.severn.Adapter.VideoAdapter;
 import com.example.severn.dynasty.MingFragment;
@@ -50,7 +53,7 @@ public class StatFragment extends Fragment {
     private MingFragment mingFragment;
     private QingFragment qingFragment;
     private Fragment mFragment;//当前显示的Fragment
-
+    private String username;
 //    登陆按钮
     private Button longinButton;
 
@@ -63,6 +66,7 @@ public class StatFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
     /**初始化数据*/
     private void initData() {
@@ -144,12 +148,18 @@ public class StatFragment extends Fragment {
         initFragmrnt();
 //        选项卡默认选中唐代
         SwitchTab(0);
+        longinButton.setText(username);
         longinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivityForResult(new Intent(getActivity(),LoginActivity.class),1);
-            }
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+                    if (sharedPreferences.getString("username",null)==null){
+                        startActivityForResult(new Intent(getActivity(),LoginActivity.class),1);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "您已经登录", Toast.LENGTH_SHORT).show();
+                    }
+                }
         });
         return view;
         //初始化控件
@@ -200,5 +210,28 @@ public class StatFragment extends Fragment {
                     longinButton.setText(returnUsername);
                 }
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+//        if (hidden){
+//            SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+//            String username = sharedPreferences2.getString("username","登录");
+//            longinButton.setText(username);
+//        }else {
+//
+//        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUserVisibleHint(true);
+        SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+        String username = sharedPreferences2.getString("username","登录");
+        longinButton.setText(username);
+
+
     }
 }

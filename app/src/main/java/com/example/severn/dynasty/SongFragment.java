@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.severn.Adapter.VideoAdapter;
 import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
+import com.example.severn.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +25,10 @@ public class SongFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-
     //    所有的古诗词list
     private List<VideoDao> videoDaoList = new ArrayList<>();
     private RecyclerView recyclerView;
-
-
     public SongFragment() {
-
     }
 
     public static SongFragment newInstance(String param1, String param2) {
@@ -82,6 +79,23 @@ public class SongFragment extends Fragment {
     }
     //    古诗词列表的初始化
     private void initVideos(){
-
+        VideoDao tang0 = new VideoDao("静夜思","张集",Constant.IP+"/images/libai.jpg");
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
+        videoDaoList.add(tang0);
     }
 }

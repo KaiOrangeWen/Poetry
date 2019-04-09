@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.severn.Adapter.VideoAdapter;
 import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
+import com.example.severn.util.Constant;
 import com.example.severn.util.StreamTools;
 
 import org.json.JSONArray;
@@ -48,7 +49,6 @@ public class TangFragment extends Fragment {
 
 
     private static final String TAG ="TangFragment" ;
-
     private View mView;
     private ViewPager mViewPaper;
     private List<ImageView> images;
@@ -61,12 +61,13 @@ public class TangFragment extends Fragment {
             R.drawable.tang1,
             R.drawable.tang2,
             R.drawable.tang3,
+
     };
     //存放图片的标题
     private String[] titles = new String[]{
-            "轮播1",
-            "轮播2",
-            "轮播3",
+            "八十",
+            "咏菊",
+            "小池",
     };
     private TextView title;
     private ViewPagerAdapter adapter;
@@ -158,11 +159,9 @@ public class TangFragment extends Fragment {
     public void onStart() {
         super.onStart();
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleWithFixedDelay(
-                new ViewPageTask(),
-                2,
-                2,
-                TimeUnit.SECONDS);
+        final int initalDelay = 0;
+        final int delay = 5;
+        scheduledExecutorService.scheduleWithFixedDelay(new ViewPageTask(), initalDelay, delay, TimeUnit.SECONDS);
     }
 
 
@@ -213,8 +212,7 @@ public class TangFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         initVideos();
-        VideoAdapter adapter = new VideoAdapter(videoDaoList);
-        recyclerView.setAdapter(adapter);
+
 
 
         return mView;
@@ -222,15 +220,19 @@ public class TangFragment extends Fragment {
 
     //    古诗词列表的初始化
     private void initVideos(){
-        videoDaoList.add(new VideoDao("将进酒","李白",Uri.parse("http://172.16.10.4:8888/images/libai.jpg")));
         new Thread(){
             @Override
             public void run() {
                 String data = "{\"dynasty\":\"唐\"}";
-                String post = Post(data, "http://172.16.10.4:8888/getbspoetry", getActivity());
+                String post = Post(data, Constant.getbspoetry, getActivity());
                 Log.d(TAG,post+"===============================");
                 String videoList =  paresVideoJSON(post);
-                videoJSON(videoList);
+                if (videoList!=null){
+                    videoJSON(videoList);
+                }else {
+                    
+                }
+
             }
         }.start();
 //        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang1,"张集","唐");
@@ -297,12 +299,12 @@ public class TangFragment extends Fragment {
                 videoAuthor = jsonObject.getString("author");
                 videoImgUrl = jsonObject.getString("image");
                 Log.d(TAG,videoNmae+"======"+videoAuthor+"======="+videoImgUrl);
-                videoDaoList.add(new VideoDao(videoNmae,videoAuthor,Uri.parse("http://172.16.10.4:8888/"+videoImgUrl)));
+                videoDaoList.add(new VideoDao(videoNmae,videoAuthor,Constant.IP +"/"+videoImgUrl));
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        VideoAdapter videoAdapter2 = new VideoAdapter(videoDaoList);
-                        recyclerView.setAdapter(videoAdapter2);
+                        VideoAdapter adapter = new VideoAdapter(videoDaoList);
+                        recyclerView.setAdapter(adapter);
                     }
                 });
             }
