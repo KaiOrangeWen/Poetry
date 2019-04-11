@@ -12,7 +12,7 @@ public class AudioApp extends Application {
     public void onCreate() {
         super.onCreate();
         // 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
-// 请勿在“=”与appid之间添加任何空字符或者转义符
+        // 请勿在“=”与appid之间添加任何空字符或者转义符
         SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5cabe307");
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.severn.entity.DiscoverDao;
 import com.example.severn.poetry.R;
+import com.example.severn.poetry.VideoPlayActivity;
 import com.example.severn.util.MyImageView;
 
 import java.util.List;
@@ -56,6 +57,8 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                 DiscoverDao discoverDao = mVideoList.get(postion);
 
                 Toast.makeText(v.getContext(),discoverDao.getName() , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(),VideoPlayActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
         return holder;

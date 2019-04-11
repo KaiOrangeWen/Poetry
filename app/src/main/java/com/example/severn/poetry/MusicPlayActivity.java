@@ -82,6 +82,9 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_music_play);
+
+        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5cabe307");
+
         lv = findViewById(R.id.lv_poem);
         seekBar = findViewById(R.id.seek_bar);
         tv_time_start = findViewById(R.id.time_start);
