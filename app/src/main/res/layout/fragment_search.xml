@@ -40,7 +40,6 @@
             android:id="@+id/discover"
             android:layout_width="match_parent"
             android:layout_height="140dp">
-
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
     <LinearLayout
@@ -48,21 +47,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical"
-
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="标题2"
+            android:text="古风"
             android:textSize="18sp"
             android:textColor="#000"
-
             />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/discover2"
             android:layout_width="match_parent"
             android:layout_height="140dp">
-
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 

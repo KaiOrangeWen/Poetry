@@ -1,5 +1,6 @@
 package com.example.severn.poetry;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -99,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
             mFragment = fragment;
         }
     }
+
+
 
 
 }

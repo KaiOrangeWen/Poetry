@@ -212,9 +212,6 @@ public class TangFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         initVideos();
-
-
-
         return mView;
     }
 
