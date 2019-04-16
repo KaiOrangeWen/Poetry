@@ -17,6 +17,7 @@ import com.example.severn.poetry.VideoPlayActivity;
 import com.example.severn.util.MyImageView;
 
 import java.util.List;
+//aaaa
 
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
     private List<DiscoverDao> mVideoList;
