@@ -64,6 +64,7 @@ public class PersonFragment extends Fragment {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 sharedPreferences.edit().clear().commit();
 //                onHiddenChanged(true);
                 name.setText("请登录");

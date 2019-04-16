@@ -50,22 +50,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
 //        初始化底部导航栏布局
         initFragmrnt();
 //        设置初始页面为学习首页
         navigation.setSelectedItemId(R.id.navigation_dashboard);
     }
-
     @Override
     protected void onRestart() {
         super.onRestart();
     }
-
     //布局的初始化，默认是主页
     private  void initFragmrnt(){
         personFragment = new PersonFragment();
@@ -75,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.frameLayout,searchFragment)
                 .commit();
         mFragment = searchFragment;
-
     }
     //布局的切换
     private void switchFragment(Fragment fragment){
@@ -88,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 //如果没有，则先把当前的Fragment移除，把切换的Fragment添加上
                 getSupportFragmentManager().beginTransaction().hide(mFragment)
                         .add(R.id.frameLayout,fragment).commit();
-
             } else {
                 //如果已经添加过，则先把当前的Fragment隐藏，把切换的Fragment显示出来
                 boolean boo = fragment.getUserVisibleHint();
@@ -100,8 +93,4 @@ public class MainActivity extends AppCompatActivity {
             mFragment = fragment;
         }
     }
-
-
-
-
 }

@@ -1,6 +1,7 @@
 package com.example.severn.poetry;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -27,26 +28,32 @@ import android.widget.VideoView;
 
 import com.example.severn.util.Constant;
 
+
+/**
+ * 本地书写html ，传入视频地址
+ */
 public class VideoPlayActivity extends AppCompatActivity {
-    private String url = Constant.IP+"/video/blm.mp4";
     private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
+
+
+
+        Intent intent = getIntent();
+        String imgurl = intent.getStringExtra("imgurl");
+        String videourl = intent.getStringExtra("videourl");
+
+
         webView = findViewById(R.id.webview);
-        webView.loadUrl(url);//加载url
-
-
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
-
-
         //使用webview显示html代码
-//        webView.loadDataWithBaseURL(null,"<html><head><title> 欢迎您 </title></head>" +
-//                "<body><h2>使用webview显示 html代码</h2></body></html>", "text/html" , "utf-8", null);
-
+        webView.loadDataWithBaseURL(null,"<html><head><title> 欢迎您 </title><style>*{margin: 0;padding: 0;}</style></head>" +
+                "<body><video controls autoplay name=\"media\" style=\"width: 100%;\" poster=\""+imgurl+"\">\n" +
+                "        <source src=\""+videourl+"\" type=\"video/mp4\">\n" +
+                "    </video></body></html>", "text/html" , "utf-8", null);
         //添加js监听 这样html就能调用客户端
         webView.setWebChromeClient(webChromeClient);
         webView.setWebViewClient(webViewClient);
@@ -60,7 +67,7 @@ public class VideoPlayActivity extends AppCompatActivity {
          * LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
          * LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
          */
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存，只从网络获取数据.
+//        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存，只从网络获取数据.
 
         //支持屏幕缩放
         webSettings.setSupportZoom(true);

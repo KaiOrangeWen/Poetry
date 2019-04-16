@@ -111,11 +111,9 @@ public class TangFragment extends Fragment {
                 title.setText(titles[position]);
                 dots.get(position).setBackgroundResource(R.mipmap.dot_yes);
                 dots.get(oldPosition).setBackgroundResource(R.mipmap.dot_no);
-
                 oldPosition = position;
                 currentItem = position;
             }
-
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
 
@@ -164,7 +162,6 @@ public class TangFragment extends Fragment {
         scheduledExecutorService.scheduleWithFixedDelay(new ViewPageTask(), initalDelay, delay, TimeUnit.SECONDS);
     }
 
-
     /**
      * 图片轮播任务
      * @author liuyazhuang
@@ -204,8 +201,6 @@ public class TangFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_tang, container, false);
         setView();
-
-
 //        古诗词列表
         recyclerView = mView.findViewById(R.id.tanglist);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
@@ -227,9 +222,7 @@ public class TangFragment extends Fragment {
                 if (videoList!=null){
                     videoJSON(videoList);
                 }else {
-                    
                 }
-
             }
         }.start();
 //        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang1,"张集","唐");
@@ -259,7 +252,6 @@ public class TangFragment extends Fragment {
 //            int code = conn.getResponseCode();
 //            Log.d(TAG, "Post: "+code);
 //            if (code != 200){
-//
 //            }
             InputStream inputStream=conn.getInputStream();
             byte[] data=StreamTools.read(inputStream);

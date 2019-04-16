@@ -35,9 +35,8 @@ public class SearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewDiscover;
     private List<DiscoverDao> discoverDaoList = new ArrayList<>();
 
     public SearchFragment() {
@@ -57,7 +56,7 @@ public class SearchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        initList();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,14 +64,18 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = view.findViewById(R.id.discover2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
-//        设置滚动方向水平
+        // 设置滚动方向水平
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         DiscoverAdapter discoverAdapter = new DiscoverAdapter(discoverDaoList);
         recyclerView.setAdapter(discoverAdapter);
-
-        initList();
-
+        recyclerViewDiscover = view.findViewById(R.id.discover);
+        LinearLayoutManager linearLayoutManagerDis = new LinearLayoutManager(this.getActivity());
+        //设置滚动方向水平
+        linearLayoutManagerDis.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerViewDiscover.setLayoutManager(linearLayoutManagerDis);
+        DiscoverAdapter discoverAdaptergf = new DiscoverAdapter(discoverDaoList);
+        recyclerViewDiscover.setAdapter(discoverAdaptergf);
         return view;
     }
     public void onButtonPressed(Uri uri) {
@@ -114,7 +117,7 @@ public class SearchFragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(post);
                     String data1 = jsonArray.getJSONObject(0).getString("data");
                     JSONArray jsonArray2 = new JSONArray(data1);
-                    for (int i = 0;i<jsonArray.length();i++){
+                    for (int i = 0;i<jsonArray2.length();i++){
                         JSONObject jsonObject = jsonArray2.getJSONObject(i);
                         String name = jsonObject.getString("name");
                         String videopath = jsonObject.getString("video");
@@ -122,17 +125,10 @@ public class SearchFragment extends Fragment {
                         discoverDaoList.add(new DiscoverDao(name,Constant.IP+"/"+imagepath,Constant.IP+"/"+videopath));
                         Log.d("============",name+Constant.IP+"/"+imagepath+videopath);
                     }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            DiscoverAdapter discoverAdaptergf = new DiscoverAdapter(discoverDaoList);
-                            recyclerView.setAdapter(discoverAdaptergf);
-                        }
-                    });
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 //                JSONAnalysis jsonAnalysis = new JSONAnalysis();
 //                String data1 = jsonAnalysis.analysisData(post, "", "data");
 //                String name = jsonAnalysis.JSON(data1, "", "name");

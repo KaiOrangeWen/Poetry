@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.severn.entity.DiscoverDao;
+import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
 import com.example.severn.poetry.VideoPlayActivity;
 import com.example.severn.util.MyImageView;
@@ -20,16 +21,9 @@ import java.util.List;
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
     private List<DiscoverDao> mVideoList;
 
-
-    private Context mContext;
-
-
-
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         View videoView;
-
-
         MyImageView videoImg;
         TextView videoName;
 
@@ -38,7 +32,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
 
             videoView = itemView;
             videoImg = itemView.findViewById(R.id.discover_img);
-//            videoImg = itemView.findViewById(R.id.video_img);
+            videoName = itemView.findViewById(R.id.discover_video);
         }
     }
     public DiscoverAdapter(List<DiscoverDao> videoList) {
@@ -55,9 +49,10 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             public void onClick(View v) {
                 int postion = holder.getAdapterPosition();
                 DiscoverDao discoverDao = mVideoList.get(postion);
-
                 Toast.makeText(v.getContext(),discoverDao.getName() , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(),VideoPlayActivity.class);
+                intent.putExtra("imgurl",discoverDao.getImageId());
+                intent.putExtra("videourl",discoverDao.getVideoPath());
                 v.getContext().startActivity(intent);
             }
         });
@@ -65,11 +60,13 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        DiscoverDao discoverDao = mVideoList.get(i);
+        viewHolder.videoImg.setImageURL(discoverDao.getImageId());
+        viewHolder.videoName.setText(discoverDao.getName());
     }
     @Override
     public int getItemCount() {
-        System.out.println(mVideoList.size());
+        System.out.println("视频的的个数"+mVideoList.size());
         return mVideoList.size();
     }
 }
