@@ -40,7 +40,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     int playflag = 0;
     private ListView lv;
     private ImageButton btn_play_pause;
-    private ImageButton btn_heart;
+    private ImageButton btn_heart,btn_map;
     private Button back;
     private SeekBar seekBar;
     private MediaPlayer mediaPlayer;
@@ -93,6 +93,15 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         btn_heart = findViewById(R.id.btn_heart);
         tv_poem_title = findViewById(R.id.tv_poem_title);
         back = findViewById(R.id.button_backward);
+        btn_map=findViewById(R.id.btn_map);
+        btn_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //显示地图
+                Intent intent=new Intent(MusicPlayActivity.this,MapActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
