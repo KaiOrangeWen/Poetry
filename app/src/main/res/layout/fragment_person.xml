@@ -90,52 +90,7 @@
         </LinearLayout>
         <!--我的测试模块结束-->
 
-        <!--我的成绩模块开始-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            >
-            <RelativeLayout
-                android:background="#F7F8F8"
-                android:id="@+id/mygrade"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:clickable="true"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#E5E5E5"
-                    >
-                </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的成绩"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="30dp"
-                    android:textSize="16dp"
-                    android:layout_centerVertical="true"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:src="@mipmap/right_ccc"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="8dp"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="0dp"
-                    android:background="#E5E5E5"
-                    >
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
-        <!--我的成绩模块完成-->
+
 
 
         <!--我的笔记模块-->

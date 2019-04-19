@@ -183,8 +183,6 @@ public class TangFragment extends Fragment {
             mViewPaper.setCurrentItem(currentItem);
         };
     };
-
-
     public TangFragment() {
     }
     @Override
@@ -195,7 +193,6 @@ public class TangFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -209,7 +206,6 @@ public class TangFragment extends Fragment {
         initVideos();
         return mView;
     }
-
     //    古诗词列表的初始化
     private void initVideos(){
         new Thread(){

@@ -38,9 +38,6 @@ public class VideoPlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
-
-
-
         Intent intent = getIntent();
         String imgurl = intent.getStringExtra("imgurl");
         String videourl = intent.getStringExtra("videourl");

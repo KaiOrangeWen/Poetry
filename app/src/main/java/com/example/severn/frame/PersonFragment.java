@@ -64,7 +64,6 @@ public class PersonFragment extends Fragment {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
                 sharedPreferences.edit().clear().commit();
 //                onHiddenChanged(true);
                 name.setText("请登录");
@@ -76,7 +75,6 @@ public class PersonFragment extends Fragment {
                 startActivity(new Intent(getActivity(),PoetryTestActivity.class));
             }
         });
-
         return view;
     }
     @Override
@@ -87,7 +85,6 @@ public class PersonFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
