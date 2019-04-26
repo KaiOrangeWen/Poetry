@@ -70,6 +70,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 Intent intent = new Intent(v.getContext(),MusicPlayActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("pomename",videoDao.getName());
+                intent.putExtra("author",videoDao.getAuthor());
                 v.getContext().startActivity(intent);
             }
         });

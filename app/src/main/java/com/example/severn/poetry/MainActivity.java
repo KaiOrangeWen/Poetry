@@ -1,9 +1,11 @@
 package com.example.severn.poetry;
 
+import android.Manifest;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private SearchFragment searchFragment;
     private StatFragment statFragment;
     private Fragment mFragment;//当前显示的Fragment
-
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         initFragmrnt();
 //        设置初始页面为学习首页
         navigation.setSelectedItemId(R.id.navigation_dashboard);
+        ActivityCompat.requestPermissions(this,new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_COARSE_LOCATION},1);
     }
     @Override
     protected void onRestart() {

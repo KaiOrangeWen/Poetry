@@ -40,7 +40,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     int playflag = 0;
     private ListView lv;
     private ImageButton btn_play_pause;
-    private ImageButton btn_heart;
+    private ImageButton btn_heart,btn_map;
     private Button back;
     private SeekBar seekBar;
     private MediaPlayer mediaPlayer;
@@ -48,7 +48,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     private TextView tv_time_end;
     private TextView tv_poem_title;
     private List<PoemDao> poemDaos = new ArrayList<PoemDao>();
-
+    private TextView dynamic;
     private TextToSpeech tts;
 
     RequestPost requestPost = new RequestPost();
@@ -56,6 +56,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     private Handler handler = new Handler();
     String message;
     String pomename;
+    String author;
     String username;
     String jsonData;
     private Runnable runnable = new Runnable() {
@@ -93,22 +94,35 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         btn_heart = findViewById(R.id.btn_heart);
         tv_poem_title = findViewById(R.id.tv_poem_title);
         back = findViewById(R.id.button_backward);
+        btn_map=findViewById(R.id.btn_map);
+
+        dynamic = findViewById(R.id.tv_poem_Dynamic);
+        btn_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //显示地图
+                Intent intent=new Intent(MusicPlayActivity.this,MapActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
         Intent intent = getIntent();
         pomename = intent.getStringExtra("pomename");
+        author = intent.getStringExtra("author");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        //初始化歌词显示
+        //初始化诗词显示
         new Thread(){
             @Override
             public void run() {
                 tv_poem_title.setText(pomename);
+                dynamic.setText("【"+Constant.DYNASTY+"】"+author);
                 SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
                 username = sharedPreferences.getString("username", "admin");
                 jsonData = requestPost.Post("{\"username\":\"" + username + "\",\"poetryname\":\"" + pomename + "\"}", Constant.GETPOETRY, "MusicPlayActivity");
@@ -145,7 +159,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //设置音乐在Seekbar中滑动后的播放
                 int currentPosition = seekBar.getProgress();
-                mediaPlayer.seekTo(currentPosition);
+                
             }
         });
         //播放按钮/1为播放，0为停止
