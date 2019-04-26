@@ -51,7 +51,7 @@ public class MyStatementFragment3 extends Fragment {
     }
 
     /**
-     * 折线图
+     * 饼图
      */
     private void drawChart(){
         PieDataSet pieDataSet=new PieDataSet(list_adapt,"");

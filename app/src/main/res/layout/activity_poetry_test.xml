@@ -7,16 +7,16 @@
     android:orientation="vertical"
     tools:context=".PoetryTestActivity">
 
-    <!-- 首先定义标题栏 -->
+
     <RelativeLayout
         android:id="@+id/biaoti"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="35dp"
         android:background="#3C8DC4">
         <TextView
-            android:text="小测试"
+            android:text="我的测试"
             android:id="@+id/text_title"
-            android:textSize="21sp"
+            android:textSize="20sp"
             android:textColor="#fff"
             android:gravity="center"
             android:singleLine="true"
@@ -26,7 +26,7 @@
 
         <Button
             android:id="@+id/button_backward"
-            android:layout_width="70dp"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawablePadding="6dp"
             android:ellipsize="end"
@@ -35,7 +35,6 @@
             android:singleLine="true"
             android:background="@mipmap/left_ccc"
             android:textColor="#fff"
-            android:textSize="18dp"
             android:visibility="visible" />
     </RelativeLayout>
 

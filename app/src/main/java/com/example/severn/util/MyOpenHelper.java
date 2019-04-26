@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpenHelper extends SQLiteOpenHelper {
 
     public MyOpenHelper(Context context,String name,SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "Sqlite", factory, 3);
+        super(context, "Sqlite", factory, 5);
     }
 
     @Override
@@ -17,6 +17,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("drop table if exists Grade");
+        onCreate(db);
     }
 }

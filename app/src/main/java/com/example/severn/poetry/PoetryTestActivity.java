@@ -185,7 +185,7 @@ public class PoetryTestActivity extends AppCompatActivity implements View.OnClic
         MyOpenHelper myOpenHelper=new MyOpenHelper(this,null,null,0);
         SQLiteDatabase sqLiteDatabase=myOpenHelper.getReadableDatabase();
         ContentValues contentValues=new ContentValues();
-        contentValues.put("grade",grade);
+        contentValues.put("grade",(float)(int) (((float)(list_questions.size()-list.size())/list_questions.size())*100*10)/10);
         contentValues.put("time",new Date().getTime()+"");
         sqLiteDatabase.insert("Grade",null,contentValues);
         return list;

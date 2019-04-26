@@ -25,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyStatementActivity"></activity>
+        <activity android:name=".MyGradeActivity"></activity>
+        <activity android:name=".MyStatementActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
