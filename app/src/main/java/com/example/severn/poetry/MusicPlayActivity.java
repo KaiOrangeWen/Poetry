@@ -75,7 +75,17 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         }
     };
 
-//    String poems[]={"床前明月光，","疑是地上霜。","举头望明月，","低头思故乡。"};
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AudioUtils.getInstance().init(MusicPlayActivity.this); //初始化语音对象
+        AudioUtils.getInstance().speakText(""); //播放语音
+        btn_play_pause.setBackgroundResource(R.mipmap.play_while);
+        flag = 0;
+    }
+
+
+    //    String poems[]={"床前明月光，","疑是地上霜。","举头望明月，","低头思故乡。"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +93,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_music_play);
 
-        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5cabe307");
+        //SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5cabe307");
 
         lv = findViewById(R.id.lv_poem);
         seekBar = findViewById(R.id.seek_bar);
@@ -157,6 +167,9 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
                 mediaPlayer.seekTo(currentPosition);
             }
         });
+
+
+
         //播放按钮/1为播放，0为停止
         btn_play_pause.setOnClickListener(new View.OnClickListener() {
             @Override

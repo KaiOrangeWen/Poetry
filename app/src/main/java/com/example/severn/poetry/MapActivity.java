@@ -24,7 +24,7 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         initView();
-        showMap(savedInstanceState,37.470905,121.454175);
+        showMap(savedInstanceState,37.470905,121.454175);//x:纬度 y:经度
     }
 
     private void showMap(Bundle bundle,double x,double y){

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.severn.poetry.MainActivity;
+import com.example.severn.poetry.MyStatementActivity;
 import com.example.severn.poetry.PoetryTestActivity;
 import com.example.severn.poetry.R;
 import com.example.severn.util.Constant;
@@ -25,6 +26,7 @@ public class PersonFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private RelativeLayout test;
     private RelativeLayout exit;
+    private RelativeLayout statement;
 
 
 
@@ -57,6 +59,7 @@ public class PersonFragment extends Fragment {
         test = view.findViewById(R.id.mytest);
         name = view.findViewById(R.id.userneme);
         exit = view.findViewById(R.id.exit);
+        statement = view.findViewById(R.id.statement);
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username","请登录");
         name.setText(username);
@@ -74,6 +77,12 @@ public class PersonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),PoetryTestActivity.class));
+            }
+        });
+        statement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MyStatementActivity.class));
             }
         });
 
