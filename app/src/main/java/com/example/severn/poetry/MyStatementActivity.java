@@ -1,39 +1,43 @@
 package com.example.severn.poetry;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.severn.util.Constant;
-import com.example.severn.util.RequestPost1;
+import com.example.severn.frame.MyStatementFragment1;
+import com.example.severn.frame.MyStatementFragment2;
+import com.example.severn.frame.MyStatementFragment3;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyStatementActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Fragment[] fragments = new Fragment[]{new MyStatementFragment1(), new MyStatementFragment2(), new MyStatementFragment3()};
     private static final String TAG = "MyStatement";
     private TextView text_title;
     private Button button_backward;
     private RelativeLayout biaoti;
     private BarChart chart;
-    private List<BarEntry> list_adapt=new ArrayList<>();
-    private List<String> list_x=new ArrayList<>();
+    private List<BarEntry> list_adapt = new ArrayList<>();
+    private List<String> list_x = new ArrayList<>();
+    private Adapt_viewpager adapt_viewpager;
+    private ViewPager viewPager;
+    private TextView tv1;
+    private TextView tv2;
+    private TextView tv3;
+    private TextView[] textViews;
+    private TextView lastTextview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,73 +45,27 @@ public class MyStatementActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_my_statement);
         initView();
         initTitle();
-        new Thread(new Runnable() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void run() {
-                getDatas();
-                drawChart();
-            }
-        }).start();
-    }
+            public void onPageScrolled(int i, float v, int i1) {
 
-    /**
-     * 绘制条形图
-     */
-    private void drawChart(){
-        BarDataSet barDataSet=new BarDataSet(list_adapt,"");
-        barDataSet.setColor(Color.BLACK);
-        barDataSet.setBarSpacePercent(50);
-        BarData barData=new BarData(list_x,barDataSet);
-        chart.setData(barData);
-        XAxis xAxis=chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setDrawGridLines(false);
-        YAxis left=chart.getAxisLeft();
-        left.setDrawGridLines(false);
-        left.setDrawAxisLine(false);
-        left.setDrawLabels(false);
-        YAxis right=chart.getAxisRight();
-        right.setDrawGridLines(false);
-        right.setDrawLabels(false);
-        right.setDrawAxisLine(false);
-        chart.getLegend().setEnabled(false);
-        chart.setDescription("");
-        runOnUiThread(new Runnable() {
+            }
+
             @Override
-            public void run() {
-                chart.invalidate();
+            public void onPageSelected(int i) {
+                lastTextview.setBackgroundResource(R.drawable.statement_view_normal);
+                textViews[i].setBackgroundResource(R.drawable.statement_view_selecter);
+                lastTextview=textViews[i];
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
             }
         });
-
     }
 
-    /**
-     * 从服务器获取图标的内容
-     */
-    private void getDatas(){
-        List<BarEntry> list=new ArrayList<>();
-        List<String> list1=new ArrayList<>();
-        String s= RequestPost1.Post("{\"username\":\"admin\"}", Constant.IP+"/gettime","MyStatement");
-        try {
-            JSONObject jsonObject=new JSONObject(s);
-            s=jsonObject.getString("data");
-            JSONArray jsonArray=new JSONArray(s);
-            for (int i=0;i<jsonArray.length();i++){
-                jsonObject=jsonArray.getJSONObject(i);
-                String dynasty=jsonObject.getString("dynasty");
-                int times=jsonObject.getInt("time");
-                list1.add(dynasty);
-                list.add(new BarEntry(times,i));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        list_adapt=list;
-        list_x=list1;
-    }
-
-    private void initTitle(){
+    private void initTitle() {
         button_backward.setOnClickListener(this);
     }
 
@@ -115,9 +73,16 @@ public class MyStatementActivity extends AppCompatActivity implements View.OnCli
         text_title = (TextView) findViewById(R.id.text_title);
         button_backward = (Button) findViewById(R.id.button_backward);
         biaoti = (RelativeLayout) findViewById(R.id.biaoti);
-        chart = (BarChart) findViewById(R.id.chart);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
+        adapt_viewpager = new Adapt_viewpager(getSupportFragmentManager());
+        viewPager.setAdapter(adapt_viewpager);
         button_backward.setOnClickListener(this);
+        tv1 = (TextView) findViewById(R.id.tv1);
+        tv2 = (TextView) findViewById(R.id.tv2);
+        tv3 = (TextView) findViewById(R.id.tv3);
+        textViews = new TextView[]{tv1,tv2,tv3};
+        lastTextview=tv1;
     }
 
     @Override
@@ -125,5 +90,23 @@ public class MyStatementActivity extends AppCompatActivity implements View.OnCli
         if (v == button_backward) {
             finish();
         }
+    }
+
+    class Adapt_viewpager extends FragmentPagerAdapter {
+
+        public Adapt_viewpager(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return fragments[i];
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.length;
+        }
+
     }
 }

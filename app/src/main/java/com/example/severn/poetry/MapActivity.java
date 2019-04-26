@@ -1,10 +1,12 @@
 package com.example.severn.poetry;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
@@ -14,17 +16,47 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
+import com.example.severn.util.RequestPost1;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MapActivity extends AppCompatActivity {
 
     MapView mapView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         initView();
-        showMap(savedInstanceState,37.470905,121.454175);//x:纬度 y:经度
+        Intent intent=getIntent();
+//        Bundle bundle=intent.getBundleExtra("map");
+//        final String authorName=bundle.getString("author");
+//        final String poetryName=bundle.getString("poetry");
+//        Log.d("aaa", "onCreate: "+authorName);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String s=RequestPost1.get("/getadress?authorname="+"李白"+"&poetryname="+"静夜思");
+                Log.d("aaa", "run: "+s);
+                try {
+                    JSONObject jsonObject=new JSONObject(s);
+                    s=jsonObject.getString("data");
+                    jsonObject=new JSONObject(s);
+                    final double x=jsonObject.getDouble("wtd");
+                    final double y=jsonObject.getDouble("ltd");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showMap(savedInstanceState,x,y);//x:纬度 y:经度
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void showMap(Bundle bundle,double x,double y){
