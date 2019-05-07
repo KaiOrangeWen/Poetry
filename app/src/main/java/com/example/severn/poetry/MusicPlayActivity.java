@@ -24,6 +24,7 @@ import com.example.severn.entity.PoemDao;
 import com.example.severn.util.AudioUtils;
 import com.example.severn.util.Constant;
 import com.example.severn.util.JSONAnalysis;
+import com.example.severn.util.RequestGet;
 import com.example.severn.util.RequestPost;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -54,11 +55,13 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     RequestPost requestPost = new RequestPost();
     JSONAnalysis jsonAnalysis = new JSONAnalysis();
     private Handler handler = new Handler();
+    String data;
     String message;
     String pomename;
     String author;
     String username;
     String jsonData;
+    String translation;
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -76,7 +79,17 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         }
     };
 
-//    String poems[]={"床前明月光，","疑是地上霜。","举头望明月，","低头思故乡。"};
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AudioUtils.getInstance().init(MusicPlayActivity.this); //初始化语音对象
+        AudioUtils.getInstance().speakText(""); //播放语音
+        btn_play_pause.setBackgroundResource(R.mipmap.play_while);
+        flag = 0;
+    }
+
+
+    //    String poems[]={"床前明月光，","疑是地上霜。","举头望明月，","低头思故乡。"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +97,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_music_play);
 
-        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5cabe307");
+        //SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5cabe307");
 
         lv = findViewById(R.id.lv_poem);
         seekBar = findViewById(R.id.seek_bar);
@@ -125,14 +138,26 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
                 dynamic.setText("【"+Constant.DYNASTY+"】"+author);
                 SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
                 username = sharedPreferences.getString("username", "admin");
-                jsonData = requestPost.Post("{\"username\":\"" + username + "\",\"poetryname\":\"" + pomename + "\"}", Constant.GETPOETRY, "MusicPlayActivity");
-                Log.d("Music","{\"username\":\"" + username + "\",\"poetryname\":\"" + pomename + "\"}===============================");
-                String author = jsonAnalysis.analysisData(jsonData, "", "author");
-                String dynasty = jsonAnalysis.analysisData(jsonData, "", "dynasty");
-                message = jsonAnalysis.analysisData(jsonData, "", "message");
+//                jsonData = requestPost.Post("{\"username\":\"" + username + "\",\"poetryname\":\"" + pomename + "\"}", Constant.GETPOETRY, "MusicPlayActivity");
+                jsonData = RequestGet.Get("/getpoetry?poetryname="+pomename+"&username="+username);
+//                Log.d("Music","{\"username\":\"" + username + "\",\"poetryname\":\"" + pomename + "\"}===============================");
+//                String author = jsonAnalysis.analysisData(jsonData, "", "author");
+//                String dynasty = jsonAnalysis.analysisData(jsonData, "", "dynasty");
+
+
+//                这是整体的诗词数据
+                data = jsonAnalysis.analysisData(jsonData, "", "data");
+//                古诗正文
+                message = jsonAnalysis.analysisData(data,"","message");
+//                名字
+                pomename = jsonAnalysis.analysisData(data,"","name");
+//                作者
+                author = jsonAnalysis.analysisData(data,"","author");
+//                解释
+                translation = jsonAnalysis.analysisData(data,"","translation");
+
+
                 initList(message);
-                Log.d("",message+"=========================================");
-                Log.d("我是网络请求线程","initList();");
                 new Thread(){
                     @Override
                     public void run() {
@@ -140,7 +165,6 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
                             @Override
                             public void run() {
                                 lv.setAdapter(new MyAdapter());
-                                Log.d("我是UI线程","lv.setAdapter(new MyAdapter());");
                             }
                         });
                     }
@@ -162,6 +186,9 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
                 
             }
         });
+
+
+
         //播放按钮/1为播放，0为停止
         btn_play_pause.setOnClickListener(new View.OnClickListener() {
             @Override

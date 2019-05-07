@@ -17,6 +17,7 @@ import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
 import com.example.severn.util.Constant;
 import com.example.severn.util.JSONAnalysis;
+import com.example.severn.util.RequestGet;
 import com.example.severn.util.RequestPost;
 
 import org.json.JSONArray;
@@ -92,26 +93,10 @@ public class SearchFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
     private void initList(){
-//        final DiscoverDao discoverDao = new DiscoverDao("静夜思",Constant.IP+"/images/libai.jpg","");
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-//        discoverDaoList.add(discoverDao);
-
-
         new Thread(){
             @Override
             public void run() {
-                String data = "{\"type\":\"古风\"}";
-                String url= Constant.IP+"/getvideo";
-                RequestPost requestPost = new RequestPost();
-                String post = requestPost.Post(data, url, "gfSearch");
-                Log.d("============",post);
+                String post = RequestGet.Get("/getvideo?type=古风");
                 post = "["+post+"]";
                 try {
                     JSONArray jsonArray = new JSONArray(post);
@@ -123,19 +108,10 @@ public class SearchFragment extends Fragment {
                         String videopath = jsonObject.getString("video");
                         String imagepath = jsonObject.getString("image");
                         discoverDaoList.add(new DiscoverDao(name,Constant.IP+"/"+imagepath,Constant.IP+"/"+videopath));
-                        Log.d("============",name+Constant.IP+"/"+imagepath+videopath);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                JSONAnalysis jsonAnalysis = new JSONAnalysis();
-//                String data1 = jsonAnalysis.analysisData(post, "", "data");
-//                String name = jsonAnalysis.JSON(data1, "", "name");
-//                String videopath = jsonAnalysis.JSON(data1, "", "video");
-//                String imagepath = jsonAnalysis.JSON(data1, "", "image");
-//                DiscoverDao discoverDao1 = new DiscoverDao(name,imagepath,videopath);
-//                discoverGuFeng.add(discoverDao);
             }
         }.start();
     }

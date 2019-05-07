@@ -23,6 +23,7 @@ import com.example.severn.Adapter.VideoAdapter;
 import com.example.severn.entity.VideoDao;
 import com.example.severn.poetry.R;
 import com.example.severn.util.Constant;
+import com.example.severn.util.RequestGet;
 import com.example.severn.util.StreamTools;
 
 import org.json.JSONArray;
@@ -212,10 +213,11 @@ public class TangFragment extends Fragment {
         new Thread(){
             @Override
             public void run() {
-                String data = "{\"dynasty\":\"唐\"}";
-                String post = Post(data, Constant.getbspoetry, getActivity());
-                Log.d(TAG,post+"===============================");
-                String videoList =  paresVideoJSON(post);
+//                String data = "{\"dynasty\":\"唐\"}";
+//                String post = Post(data, Constant.getbspoetry, getActivity());
+                String data = RequestGet.Get("/getbspoetry?dynasty=唐");
+                Log.d(TAG,data+"===============================");
+                String videoList =  paresVideoJSON(data);
                 if (videoList!=null){
                     videoJSON(videoList);
                 }else {
@@ -224,42 +226,6 @@ public class TangFragment extends Fragment {
         }.start();
 //        VideoDao tang0 = new VideoDao("静夜思",R.drawable.tang1,"张集","唐");
 //        videoDaoList.add(tang0);
-    }
-    public  String Post(String string,String post,Context context)//string POST参数,get 请求的URL地址,context 联系上下文
-    {
-        String html;
-        try {
-            String urldizhi=post; //请求地址
-            URL url=new URL(urldizhi);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(3000);
-            conn.setDoInput(true);//表示从服务器获取数据
-            conn.setDoOutput(true);//表示向服务器写数据
-            //获得上传信息的字节大小以及长度
-            conn.setRequestMethod("POST");
-            //是否使用缓存
-            conn.setUseCaches(false);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.connect();
-            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-            out.write(string);
-            out.flush();
-            out.close();
-//            获取返回值代码
-//            int code = conn.getResponseCode();
-//            Log.d(TAG, "Post: "+code);
-//            if (code != 200){
-//            }
-            InputStream inputStream=conn.getInputStream();
-            byte[] data=StreamTools.read(inputStream);
-            html = new String(data, "utf-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("-----"+e);
-            String string2="{\"success\":-1}";
-            return string2;
-        }
-        return html;
     }
     private String paresVideoJSON (String jsonData){
         String videoInfo = null;
