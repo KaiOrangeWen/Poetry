@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Translate">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/biaoti"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="#3C8DC4">
+        <TextView
+            android:text="诗词详解"
+            android:id="@+id/text_title"
+            android:textSize="21sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/button_mereturn"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_alignParentLeft="true"
+            android:background="@mipmap/left_ccc"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/translation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -36,6 +36,8 @@ public class MapActivity extends AppCompatActivity {
 //        final String poetryName=bundle.getString("poetry");
 //        Log.d("aaa", "onCreate: "+authorName);
         new Thread(new Runnable() {
+            private static final String TAG = "MapActivity";
+
             @Override
             public void run() {
                 String s=RequestPost1.get("/getadress?authorname="+"李白"+"&poetryname="+"静夜思");
@@ -44,8 +46,10 @@ public class MapActivity extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(s);
                     s=jsonObject.getString("data");
                     jsonObject=new JSONObject(s);
+
                     final double x=jsonObject.getDouble("wtd");
                     final double y=jsonObject.getDouble("ltd");
+                    Log.d(TAG, "当前的坐标"+x+"=========================="+y);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

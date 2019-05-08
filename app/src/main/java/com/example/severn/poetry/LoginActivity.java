@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Thread(){
                     @Override
                     public void run() {
-                        String name = et_name.getText().toString();
+                        final String name = et_name.getText().toString();
                         String pass = et_pass.getText().toString();
 //                      String data  = "name=" + URLEncoder.encode(name, "utf-8") + "&pass=" + URLEncoder.encode(pass, "utf-8") + "";
                         String data = "{\"name\":\""+name+"\",\"password\":\""+pass+"\"}";
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Intent intent = new Intent();
-                                intent.putExtra("name",username);
+                                intent.putExtra("name",name);
                                 setResult(2,intent);
                                 finish();
                             }

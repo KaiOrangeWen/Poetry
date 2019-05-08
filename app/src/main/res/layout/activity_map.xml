@@ -4,7 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MapActivity">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C8DC4">
+        <TextView
+            android:text="作者作诗地址"
+            android:id="@+id/tv_poem_title"
+            android:textSize="21sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/button_backward"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:drawablePadding="6dp"
+            android:background="#3C8DC4"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:visibility="visible" />
+    </RelativeLayout>
     <com.amap.api.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"

@@ -41,7 +41,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     int playflag = 0;
     private ListView lv;
     private ImageButton btn_play_pause;
-    private ImageButton btn_heart,btn_map;
+    private ImageButton btn_heart,btn_map,btn_introduce;
     private Button back;
     private SeekBar seekBar;
     private MediaPlayer mediaPlayer;
@@ -51,6 +51,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
     private List<PoemDao> poemDaos = new ArrayList<PoemDao>();
     private TextView dynamic;
     private TextToSpeech tts;
+
 
     RequestPost requestPost = new RequestPost();
     JSONAnalysis jsonAnalysis = new JSONAnalysis();
@@ -108,6 +109,7 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
         tv_poem_title = findViewById(R.id.tv_poem_title);
         back = findViewById(R.id.button_backward);
         btn_map=findViewById(R.id.btn_map);
+        btn_introduce = findViewById(R.id.btn_introduce);
 
         dynamic = findViewById(R.id.tv_poem_Dynamic);
         btn_map.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +121,15 @@ public class MusicPlayActivity extends AppCompatActivity implements TextToSpeech
             }
         });
 
-
+        btn_introduce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MusicPlayActivity.this,Translate.class);
+                intent.putExtra("username",username);
+                intent.putExtra("poetryname",pomename);
+                startActivity(intent);
+            }
+        });
 
         Intent intent = getIntent();
         pomename = intent.getStringExtra("pomename");

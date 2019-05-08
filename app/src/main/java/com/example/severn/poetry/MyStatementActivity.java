@@ -68,7 +68,6 @@ public class MyStatementActivity extends AppCompatActivity implements View.OnCli
     private void initTitle() {
         button_backward.setOnClickListener(this);
     }
-
     private void initView() {
         text_title = (TextView) findViewById(R.id.text_title);
         button_backward = (Button) findViewById(R.id.button_backward);

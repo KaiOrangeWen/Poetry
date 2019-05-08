@@ -148,7 +148,13 @@ public class StatFragment extends Fragment {
         initFragmrnt();
 //        选项卡默认选中唐代
         SwitchTab(0);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username","登录");
+
+
         longinButton.setText(username);
+
         longinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -228,9 +234,9 @@ public class StatFragment extends Fragment {
     public void onResume() {
         super.onResume();
         setUserVisibleHint(true);
-        SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
-        String username = sharedPreferences2.getString("username","登录");
-        longinButton.setText(username);
+//        SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+//        String username = sharedPreferences2.getString("username","登录");
+//        longinButton.setText(username);
 
 
     }
